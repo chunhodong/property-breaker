@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'maven-publish'
 
 group = 'com.github.chunhodong'
-version = '0.0.2'
+version = '0.0.3'
 
 sourceCompatibility = 11
 targetCompatibility = 11
