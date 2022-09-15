@@ -1,20 +1,37 @@
-plugins {
-	id 'org.springframework.boot' version '2.7.3'
-	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
-	id 'java'
-}
+apply plugin: 'java'
+apply plugin: 'maven-publish'
 
 group = 'com.github.chunhodong'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+version = '0.0.1'
+
+sourceCompatibility = 11
+targetCompatibility = 11
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.apache.tomcat.embed:tomcat-embed-core:9.0.65'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.3'
+}
+
+java {
+	withSourcesJar()
+	withJavadocJar()
+}
+
+publishing {
+	publications {
+		maven(MavenPublication) {
+			from components.java
+		}
+	}
+}
+
+wrapper {
+	gradleVersion = "7.5"
+	distributionType = Wrapper.DistributionType.ALL
 }
 
 tasks.named('test') {
