@@ -1,7 +1,10 @@
 ## Property Beaker
+[![GitHub license](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](https://github.com/chunhodong/property-breaker/blob/master/License)
+
 Property Breaker Blocks the specified property value in the application.yml or application.properties file.
 By default, a property is provided that blocks hibernate.ddl-auto: create.
 Additionally, it provides a property that can block properties written to the application.yml or application.properties file.
+
 
 ## How to start
 ```groovy
