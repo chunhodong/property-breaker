@@ -31,8 +31,8 @@ public class PropertyParser {
     private static void parseHibernateSyntax( Map<String,Object> srcMap,Map<String, String> descMap){
         OriginTrackedValue originTrackedValue = OriginTrackedValue.of(srcMap.get(ParserConstant.HIBERNATE.getProperty()));
 
-        if(originTrackedValue == null)return;
-        if(originTrackedValue.getValue().toString() != Boolean.TRUE.toString())return;
+        if(originTrackedValue == null || originTrackedValue.getValue() == null)return;
+        if(!Boolean.TRUE.toString().equals(originTrackedValue.getValue().toString()))return;
         descMap.put("spring.jpa.hibernate.ddl-auto","create");
     }
 
