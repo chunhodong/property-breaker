@@ -3,6 +3,18 @@ Property Breaker Blocks the specified property value in the application.yml or a
 By default, a property is provided that blocks hibernate.ddl-auto: create.
 Additionally, it provides a property that can block properties written to the application.yml or application.properties file.
 
+## How to start
+```groovy
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+
+dependencies {
+   implementation 'com.github.chunhodong:property-breaker:0.0.3'
+}
+```
+
 
 ## How to use
 ```yaml
