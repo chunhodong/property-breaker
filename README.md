@@ -35,8 +35,7 @@ chunhodong:
               value: 3001
 
 ```
-
-If you want to block other property values besides spring.hibernate.ddl-auto, you can block it.
+If you want to block other property values besides spring.jpa.hibernate.ddl-auto, you can do it.
 
 ## Effect of use
 A property-breaker prevents unexpected side effects.
