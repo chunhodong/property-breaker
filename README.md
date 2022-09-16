@@ -21,14 +21,14 @@ dependencies {
 
 ## How to use
 ```yaml
-chunhdong:
+chunhodong:
   property-breaker:
       hibernate-ddlauto-deactive: true
 ```
 If there is a spring.jpa.hibernate.ddl-auto:create property in application.yml or application.properties file, an exception is raised after starting Spring Boot.
 
 ```yaml
-chunhdong:
+chunhodong:
   property-breaker:
       general-property-deactive:
               key: server.port
