@@ -4,6 +4,7 @@ import com.github.chunhodong.propertybreaker.parser.PropertyParser;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.boot.env.OriginTrackedMapPropertySource;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MutablePropertySources;
 
@@ -12,10 +13,12 @@ import java.util.Map;
 
 public class EnvironmentPrepareListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
+
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
         ConfigurableEnvironment environment = event.getEnvironment();
-        if(environment.getPropertySources() == null)return;
+        MutablePropertySources propertySources = environment.getPropertySources();
+        if(propertySources == null || propertySources.size() == 0)return;
 
 
         Map<String,Object> propertyMap = getPropertySource(environment);
@@ -36,7 +39,6 @@ public class EnvironmentPrepareListener implements ApplicationListener<Applicati
     }
 
     private Map getPropertySource(ConfigurableEnvironment environment){
-        MutablePropertySources mutablePropertySources = environment.getPropertySources();
 
         return environment.getPropertySources()
                 .stream()
