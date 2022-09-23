@@ -17,13 +17,16 @@ public class EnvironmentPrepareListener implements ApplicationListener<Applicati
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
         ConfigurableEnvironment environment = event.getEnvironment();
+        //check environment value
         MutablePropertySources propertySources = environment.getPropertySources();
         if(propertySources == null || propertySources.size() == 0)return;
 
-
+        //check if user-defined environment variable value exists
         Map<String,Object> propertyMap = getPropertySource(environment);
 
         if(propertyMap.isEmpty())return;
+
+
 
         Map<String, String> detectedPropertyMap = PropertyParser.parsePropertyMap(propertyMap);
 

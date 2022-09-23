@@ -11,21 +11,30 @@ import java.util.stream.Collectors;
 
 public class PropertyParser {
 
-    public static Map<String, String> parsePropertyMap(Map<String,Object> map){
+    public static Map<String, String> parsePropertyMap(Map<String,Object> map, ParserHandler parserHandler){
 
 
-        Map<String,Object> filteredMap = map.entrySet()
+        Map<String,Object> filteredMap = filterPropertyMap(map);
+        if(filteredMap.isEmpty())return Collections.EMPTY_MAP;
+
+        return parserHandler.handle(filteredMap,new HashMap<>());
+
+
+        /*Map<String, String> result = new HashMap<>();
+        parseHibernateSyntax(filteredMap,result);
+        parseGeneralSyntax(filteredMap,result);
+
+
+        return result;
+        */
+    }
+
+    private static Map<String,Object> filterPropertyMap(Map<String,Object> map){
+        return map.entrySet()
                 .stream()
                 .filter(e -> e.getKey().indexOf(ParserConstant.PREFIX.getValue()) != -1)
                 .collect(Collectors.toMap(e->e.getKey(),e->e.getValue()));
 
-        if(filteredMap.isEmpty())return Collections.EMPTY_MAP;
-
-        Map<String, String> result = new HashMap<>();
-        parseHibernateSyntax(filteredMap,result);
-        parseGeneralSyntax(filteredMap,result);
-
-        return result;
     }
 
     private static void parseHibernateSyntax( Map<String,Object> srcMap,Map<String, String> descMap){
