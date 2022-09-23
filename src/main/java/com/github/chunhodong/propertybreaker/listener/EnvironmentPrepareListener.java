@@ -1,5 +1,8 @@
 package com.github.chunhodong.propertybreaker.listener;
 
+import com.github.chunhodong.propertybreaker.parser.AbstractSyntaxHandler;
+import com.github.chunhodong.propertybreaker.parser.GeneralSyntaxHandler;
+import com.github.chunhodong.propertybreaker.parser.HibernateSyntaxHandler;
 import com.github.chunhodong.propertybreaker.parser.PropertyParser;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.boot.env.OriginTrackedMapPropertySource;
@@ -27,8 +30,8 @@ public class EnvironmentPrepareListener implements ApplicationListener<Applicati
         if(propertyMap.isEmpty())return;
 
 
-
-        Map<String, String> detectedPropertyMap = PropertyParser.parsePropertyMap(propertyMap);
+        AbstractSyntaxHandler handler = new GeneralSyntaxHandler(new HibernateSyntaxHandler(null));
+        Map<String, String> detectedPropertyMap = PropertyParser.parsePropertyMap(propertyMap,handler);
 
         if(detectedPropertyMap.isEmpty())return;
 

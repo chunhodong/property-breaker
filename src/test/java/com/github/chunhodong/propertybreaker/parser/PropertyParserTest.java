@@ -12,7 +12,7 @@ public class PropertyParserTest {
     @Test
     void 필드조회_빈값입력하면_빈값리턴(){
 
-        Map map = PropertyParser.parsePropertyMap(Collections.EMPTY_MAP);
+        Map map = PropertyParser.parsePropertyMap(Collections.EMPTY_MAP,null);
 
         assertThat(map.isEmpty()).isEqualTo(true);
     }
