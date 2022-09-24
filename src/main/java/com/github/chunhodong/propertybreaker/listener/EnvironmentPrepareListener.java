@@ -21,30 +21,27 @@ public class EnvironmentPrepareListener implements ApplicationListener<Applicati
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
         ConfigurableEnvironment environment = event.getEnvironment();
         //check environment value
-        MutablePropertySources propertySources = environment.getPropertySources();
-        if(propertySources == null || propertySources.size() == 0)return;
+        MutablePropertySources environmentPropertySources = environment.getPropertySources();
+        if(environmentPropertySources == null || environmentPropertySources.size() == 0)return;
 
-        //check if user-defined environment variable value exists
-        Map<String,Object> propertyMap = getPropertySource(environment);
+        //check if user-defined values in .yml or .properties file
+        Map<String,Object> definedPropertyMap = getDefinedPropertyMap(environment);
+        if(definedPropertyMap.isEmpty())return;
 
-        if(propertyMap.isEmpty())return;
 
-
+        //get the property value to detect in the property-breaker.
         AbstractSyntaxHandler handler = new GeneralSyntaxHandler(new HibernateSyntaxHandler(null));
-        Map<String, String> detectedPropertyMap = PropertyParser.parsePropertyMap(propertyMap,handler);
+        Map<String, String> detectedPropertyMap = PropertyParser.parsePropertyMap(definedPropertyMap,handler);
 
         if(detectedPropertyMap.isEmpty())return;
 
-        detectedPropertyMap.entrySet().stream().forEach(entry -> {
-            Object propertyValue = propertyMap.get(entry.getKey());
-            if(propertyValue != null){
-                if(entry.getValue().equals(propertyValue.toString()))
-                    throw new IllegalArgumentException("not allowed property value");
-            }
-        });
+
+        validatePropertyValues(detectedPropertyMap,definedPropertyMap);
+
+
     }
 
-    private Map getPropertySource(ConfigurableEnvironment environment){
+    private Map getDefinedPropertyMap(ConfigurableEnvironment environment){
 
         return environment.getPropertySources()
                 .stream()
@@ -56,5 +53,15 @@ public class EnvironmentPrepareListener implements ApplicationListener<Applicati
 
     }
 
+    private void validatePropertyValues( Map<String, String> detectedPropertyMap, Map<String,Object> envPropertyMap){
+        detectedPropertyMap.entrySet().stream().forEach(entry -> {
+            Object propertyValue = envPropertyMap.get(entry.getKey());
+            if(propertyValue != null){
+                if(entry.getValue().equals(propertyValue.toString()))
+                    throw new IllegalArgumentException("not allowed property value");
+            }
+        });
+
+    }
 
 }

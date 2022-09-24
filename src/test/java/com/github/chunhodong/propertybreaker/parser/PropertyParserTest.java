@@ -20,7 +20,7 @@ public class PropertyParserTest {
     @Test
     void 필드조회_hiberndate_ddlauto_감지필드없으면_빈값리턴(){
 
-        Map map = PropertyParser.parsePropertyMap(Map.of("spring.jpa.hibernate.ddl-auto","create"));
+        Map map = PropertyParser.parsePropertyMap(Map.of("spring.jpa.hibernate.ddl-auto","create"),new GeneralSyntaxHandler(null));
 
         assertThat(map.isEmpty()).isEqualTo(true);
     }
@@ -29,7 +29,7 @@ public class PropertyParserTest {
     void 필드조회_hiberndate_ddlauto_감지필드false면_빈값리턴(){
 
         Map propertyMap = Map.of("chunhodong.property-breaker.hibernate-ddlauto-deactive","false");
-        Map map = PropertyParser.parsePropertyMap(propertyMap);
+        Map map = PropertyParser.parsePropertyMap(propertyMap,new HibernateSyntaxHandler(null));
 
         assertThat(map.isEmpty()).isEqualTo(true);
     }
@@ -38,7 +38,7 @@ public class PropertyParserTest {
     void 필드조회_hiberndate_ddlauto_감지필드true면_프로퍼티리턴(){
 
         Map propertyMap = Map.of("chunhodong.property-breaker.hibernate-ddlauto-deactive","true");
-        Map map = PropertyParser.parsePropertyMap(propertyMap);
+        Map map = PropertyParser.parsePropertyMap(propertyMap,new HibernateSyntaxHandler(null));
         assertThat(map.get("spring.jpa.hibernate.ddl-auto")).isNotNull();
         assertThat(map.get("spring.jpa.hibernate.ddl-auto")).isEqualTo("create");
 
