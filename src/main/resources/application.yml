@@ -8,6 +8,8 @@ chunhodong:
     general-property-deactive:
       key: server.port
       value: 3001
+server:
+  port: 3001
 spring:
   config:
     activate:

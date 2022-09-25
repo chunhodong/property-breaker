@@ -60,7 +60,7 @@ public class EnvironmentPrepareListener implements ApplicationListener<Applicati
             Object propertyValue = envPropertyMap.get(entry.getKey());
             if(propertyValue != null){
                 if(entry.getValue().equals(propertyValue.toString()))
-                    throw new IllegalArgumentException("not allowed property value");
+                    throw new IllegalArgumentException("not allowed property value [".concat(entry.getKey().concat(":").concat(propertyValue.toString()).concat("]")));
             }
         });
 
