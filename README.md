@@ -14,7 +14,7 @@ repositories {
 
 
 dependencies {
-   implementation 'com.github.chunhodong:property-breaker:0.0.3'
+   implementation 'com.github.chunhodong:property-breaker:0.0.4'
 }
 ```
 
