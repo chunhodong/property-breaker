@@ -36,6 +36,8 @@ public class EnvironmentPrepareListener implements ApplicationListener<Applicati
         if(detectedPropertyMap.isEmpty())return;
 
 
+
+        //find a property value in the .yml or .properties file and raises an exception if it matches
         validatePropertyValues(detectedPropertyMap,definedPropertyMap);
 
 

@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: local
+---
+chunhodong:
+  property-breaker:
+    hibernate-ddlauto-deactive: true
+    general-property-deactive:
+      key: server.port
+      value: 3001
+spring:
+  config:
+    activate:
+      on-profile: local

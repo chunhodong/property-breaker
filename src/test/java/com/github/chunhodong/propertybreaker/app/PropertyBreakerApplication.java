@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PropertyBreakerApplication {
 
     public static void main(String[] args) {
-
         SpringApplication.run(PropertyBreakerApplication.class, args);
     }
 }

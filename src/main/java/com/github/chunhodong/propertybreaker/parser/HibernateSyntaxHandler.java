@@ -13,7 +13,8 @@ public class HibernateSyntaxHandler extends AbstractSyntaxHandler{
     @Override
     public Map<String, String> handle(Map<String, Object> src, Map<String, String> desc) {
 
-        Object value = src.get(ParserConstant.HIBERNATE.getProperty());
+
+        Object value = src.get(ParserConstant.PREFIX.getValue().concat(".").concat("hibernate-ddlauto-deactive"));
 
         if(value == null)return super.handle(src,desc);
 

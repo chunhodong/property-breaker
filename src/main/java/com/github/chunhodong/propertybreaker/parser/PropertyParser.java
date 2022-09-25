@@ -1,18 +1,15 @@
 package com.github.chunhodong.propertybreaker.parser;
 
 import com.github.chunhodong.propertybreaker.enums.ParserConstant;
-import org.springframework.boot.origin.OriginTrackedValue;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class PropertyParser {
 
     public static Map<String, String> parsePropertyMap(Map<String,Object> map, ParserHandler parserHandler){
-
 
         Map<String,Object> filteredMap = filterPropertyMap(map);
         if(filteredMap.isEmpty())return Collections.EMPTY_MAP;
@@ -26,7 +23,6 @@ public class PropertyParser {
                 .stream()
                 .filter(e -> e.getKey().indexOf(ParserConstant.PREFIX.getValue()) != -1)
                 .collect(Collectors.toMap(e->e.getKey(),e->e.getValue()));
-
     }
 
 

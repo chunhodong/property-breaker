@@ -14,27 +14,28 @@ public class GeneralSyntaxHandler extends AbstractSyntaxHandler{
 
     @Override
     public Map<String, String> handle(Map<String, Object> src, Map<String, String> desc) {
-        Map<String,Object> generalPropertyMap = src.entrySet()
-                .stream()
-                .filter(entry -> entry.getKey().indexOf(ParserConstant.GENERAL.getProperty()) != -1)
-                .collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue()));
-        if(generalPropertyMap.isEmpty())return super.handle(src,desc);;
-
-        String key = parseGeneralSyntaxField(src,".key");
-        String value = parseGeneralSyntaxField(src,".value");
-        desc.put(key,value);
+        String key = parseGeneralSyntaxField(src,getGeneralPropertyKey());
+        String value = parseGeneralSyntaxField(src,getGeneralPropertyValue());
+        if(key != null && value != null)
+            desc.put(key,value);
         return super.handle(src, desc);
     }
 
-    private static String parseGeneralSyntaxField(Map<String, Object> srcMap,String keyword){
+    private String parseGeneralSyntaxField(Map<String, Object> srcMap,String keyword){
         List<String> keys =  srcMap.keySet()
                 .stream()
-                .filter(s -> s.equals(ParserConstant.GENERAL.getProperty().concat(keyword)))
+                .filter(s -> s.equals(keyword))
                 .collect(Collectors.toList());
-        if(keys.size() != 1)throw new IllegalArgumentException("only one ".concat(keyword).concat(" is allowed"));
+        if(keys.size() == 0) return null;
+        if(keys.size() > 1)throw new IllegalArgumentException("only one ".concat(keyword).concat(" is allowed"));
         return srcMap.get(keys.get(0)).toString();
 
-
-
     }
+    private String getGeneralPropertyKey(){
+        return ParserConstant.PREFIX.getValue().concat(".").concat("general-property-deactive").concat(".key");
+    }
+    private String getGeneralPropertyValue(){
+        return ParserConstant.PREFIX.getValue().concat(".").concat("general-property-deactive").concat(".value");
+    }
+
 }

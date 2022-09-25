@@ -1,9 +1,7 @@
 package com.github.chunhodong.propertybreaker.enums;
 
 public enum ParserConstant {
-    PREFIX("chunhodong.property-breaker"),
-    HIBERNATE("hibernate-ddlauto-deactive"),
-    GENERAL("general-property-deactive");
+    PREFIX("chunhodong.property-breaker");
 
     private String value;
     ParserConstant(String value){
