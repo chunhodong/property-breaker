@@ -4,6 +4,7 @@ public enum ParserConstant {
     PREFIX("chunhodong.property-breaker");
 
     private String value;
+
     ParserConstant(String value){
         this.value = value;
     }

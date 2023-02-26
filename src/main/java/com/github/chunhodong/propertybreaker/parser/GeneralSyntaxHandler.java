@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 public class GeneralSyntaxHandler extends AbstractSyntaxHandler{
 
-
     public GeneralSyntaxHandler(ParserHandler parserHandler) {
         super(parserHandler);
     }
